@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{% for x in restauarants %}
+		<a href="{% url 'restaurant_detail' restaurant_id=x.id %}"><h1>{{x.name}}</h1></a><small>{{x.description}}</small>
+	{% endfor %}
+</body>
+</html>
