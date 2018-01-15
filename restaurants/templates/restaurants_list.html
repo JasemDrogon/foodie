@@ -7,5 +7,11 @@
 	{% for x in restauarants %}
 		<a href="{% url 'restaurant_detail' restaurant_id=x.id %}"><h1>{{x.name}}</h1></a><small>{{x.description}}</small>
 	{% endfor %}
+
+<div class="col-sm-6 col-md-4">
+	<div class="card">
+			   {% if x.logo %}
+					<img class  ="card-img-top" src="{{x.logo.url}}" alt="Article image">
+			   {% endif %}
 </body>
 </html>

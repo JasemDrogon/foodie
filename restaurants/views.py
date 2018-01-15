@@ -5,6 +5,7 @@ from .forms import RestaurantForm
 # Create your views here.
 
 def restaurant_list(request):
+	object_list = Restaurant.objects.all().order_by('title')
 	rest_objects = Restaurant.objects.all()
 	context = {
 	"restauarants": rest_objects
@@ -22,38 +23,26 @@ def restaurant_detail(request, restaurant_id):
 
 
 def restaurant_create(request):
-	form =RestaurantForm(request.POST or None)
+	form =RestaurantForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
-
 		form.save()
-
 		return redirect("restaurant_list")
 	context = {
-
 	"restaurant" : form 
 	}
-
 	return render(request, "restaurant_create.html", context)
 
 def restaurant_update(request,restaurant_id):
-
 	item = Restaurant.objects.get(id= restaurant_id)
 	form = RestaurantForm(instance = item)
-
 	if request.method == "POST":
-
-		form = RestaurantForm(request.POST or None, instance = item)
-
-	
+		form = RestaurantForm(request.POST, request.FILES or None,instance = item)	
 	if form.is_valid():
 		form.save()
 		return redirect("restaurant_detail", restaurant_id=restaurant_id)
-
 	context = {
-
 	"form": form,
 	"item": item,	
-
 	}
 
 	return render(request, "restaurant_update.html", context)

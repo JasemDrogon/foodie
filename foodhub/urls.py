@@ -15,11 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
 from restaurants import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurants/',include('restaurants.urls')),
 ]
+
+if settings.DEBUG: #debug wont be turned on if the project is live
+    urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #we created an actual url
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
